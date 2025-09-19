@@ -11,7 +11,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Simpul Kain",
+  title: "Simpul Fashion",
   description: "Platform toko online fashion dengan Next.js",
 };
 
