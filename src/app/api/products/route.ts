@@ -6,10 +6,12 @@ import { cookies } from "next/headers";
 import { decrypt } from "@/lib/jose";
 import { generateSlug } from "@/lib/helper";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     const cookie = (await cookies()).get("session")?.value;
     const session = await decrypt(cookie);
+    const { searchParams } = new URL(request.url);
+    const productId = searchParams.get("productId");
 
     let products;
 
@@ -43,14 +45,67 @@ export async function GET() {
           deletedAt: null,
         },
         include: {
+          store: {
+            select: {
+              name: true,
+              isVerified: true,
+            },
+          },
           categories: {
             include: {
               category: true,
             },
           },
           images: true,
+          _count: {
+            select: {
+              orderItem: {
+                where: {
+                  order: {
+                    status: "DELIVERED",
+                  },
+                },
+              },
+            },
+          },
         },
       });
+    }
+
+    if (productId) {
+      try {
+        const product = await prisma.product.findFirst({
+          where: {
+            id: productId,
+          },
+          include: {
+            store: true,
+            categories: true,
+            images: true,
+            _count: {
+              select: {
+                orderItem: true,
+              },
+            },
+          },
+        });
+        return NextResponse.json(
+          {
+            status: "Success",
+            data: product,
+          },
+          { status: 200 }
+        );
+      } catch (error) {
+        console.log(`Terjadi kesalahan ${error}`);
+        return NextResponse.json(
+          {
+            status: "Failed",
+            message: "Produk tidak ditemukan",
+          },
+          { status: 404 }
+        );
+      }
     }
 
     // Response dengan data produk yang sudah difilter
@@ -120,7 +175,6 @@ export async function POST(request: NextRequest) {
 
       images.push(`/uploads/products/images/${filename}`);
     }
-    console.log("Categories", typeof categories);
 
     const store = await prisma.store.findFirst({
       where: {
@@ -158,7 +212,7 @@ export async function POST(request: NextRequest) {
         },
       },
     });
-    console.log("Product", product);
+
     return NextResponse.json(
       {
         status: "Success",

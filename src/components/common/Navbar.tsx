@@ -15,6 +15,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { ModeToggle } from "./ModeToggle";
+import { Badge } from "../ui/badge";
+import ButtonCart from "./ButtonCart";
 
 function ButtonStore({ roles }: { roles: string[] }) {
   return (
@@ -85,11 +87,7 @@ export const Navbar = () => {
       <div className="flex items-center space-x-4 justify-center ">
         {user && user.roles && <ButtonStore roles={user.roles} />}
 
-        <div>
-          <Button variant="secondary">
-            <ShoppingCart />
-          </Button>
-        </div>
+        <ButtonCart />
 
         {user ? (
           <Profile user={user} />

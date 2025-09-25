@@ -4,7 +4,7 @@ import ProductImageCarousel from "./ProductImageCarousel";
 import { formatRupiah } from "@/lib/helper";
 import { PublicationStatusBadge } from "./PublicationStatusBadge";
 import { Badge } from "@/components/ui/badge";
-import DOMPurify from "dompurify";
+import DOMPurify from "isomorphic-dompurify";
 
 export default function ProductDetail({
   product,

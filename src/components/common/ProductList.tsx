@@ -8,13 +8,13 @@ import {
 } from "@/components/ui/carousel";
 
 import Link from "next/link";
-import { ProductTypes } from "@/types/Product";
+import { ProductTypesResponse } from "@/types/Product";
 import { MoveRight } from "lucide-react";
 import ProductItem from "./ProductItem";
 export default function ProductList({
   products,
 }: {
-  products: ProductTypes[];
+  products: ProductTypesResponse[];
 }) {
   return (
     <div className="w-full flex flex-col mb-8 group px-16">

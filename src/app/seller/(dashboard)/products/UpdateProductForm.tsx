@@ -258,6 +258,7 @@ export default function UpdateProductForm({
                         <div className="flex gap-2 pb-2">
                           <Button
                             variant={"secondary"}
+                            type="button"
                             onClick={() =>
                               document
                                 .querySelectorAll<HTMLInputElement>(
@@ -272,6 +273,7 @@ export default function UpdateProductForm({
 
                           {file && (
                             <Button
+                              type="button"
                               variant={"destructive"}
                               onClick={() => {
                                 const newFiles = [...field.value];

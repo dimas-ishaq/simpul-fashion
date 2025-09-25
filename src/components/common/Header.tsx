@@ -29,7 +29,7 @@ export const Header = ({ role }: { role: string | null }) => {
       <header
         className={`flex h-20 items-center w-full transition-shadow duration-300 ${
           isScrolled ? "shadow-lg" : "shadow-xs"
-        } bg-white dark:bg-neutral-950/90  mb-8 px-8 sticky top-0 z-10 `}
+        } bg-white dark:bg-neutral-950  mb-8 px-8 sticky top-0 z-10 `}
       >
         <Navbar />
       </header>

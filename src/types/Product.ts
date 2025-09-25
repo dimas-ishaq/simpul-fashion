@@ -1,13 +1,13 @@
 import { OrderItemTypes } from "./Order";
 import { CategoryTypes } from "./Category";
-
+import { StoreTypes } from "./Store";
 export type ProductCategoryTypes = {
   productId: string;
   categoryId: string;
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date;
-  category: CategoryTypes[];
+  category: CategoryTypes[] | CategoryTypes;
 };
 
 export type ProductImageTypes = {
@@ -42,3 +42,9 @@ export type AddProductTypes = Omit<
 };
 
 export type ProductTableTypes = Omit<ProductTypes, "updatedAt" | "storeId">;
+export type ProductTypesResponse = ProductTypes & {
+  store: Pick<StoreTypes, "name" | "isVerified">;
+  _count: {
+    orderItem: number;
+  };
+};

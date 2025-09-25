@@ -15,6 +15,7 @@ async function getProducts() {
 
 export default async function HomePage() {
   const products = await getProducts();
+
   return (
     <div className="flex flex-col ">
       <Hero />
